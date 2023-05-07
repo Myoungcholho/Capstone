@@ -77,6 +77,13 @@ public class Player_Action : MonoBehaviour
             /* 아래 방향 Value -1, 윗 방향 Value 1 */
             v = Input.GetAxisRaw("Vertical");
 
+            //체크
+            if(h == -1 && v == -1)
+            {
+                Debug.Log("위 아래 동시 눌림");
+            }
+
+
             if (old_h != h || old_v != v)
             {
                 playerDirection();
@@ -88,12 +95,12 @@ public class Player_Action : MonoBehaviour
             bool vUp = Input.GetButtonUp("Vertical");
 
             // 방향전환 시점
-            if (hDown || vUp)
+            if (hDown)
             {
                 isHorizonMove = true;
 
             }
-            else if (vDown || hUp)
+            else if (vDown)
             {
                 isHorizonMove = false;
 
@@ -152,19 +159,6 @@ public class Player_Action : MonoBehaviour
             direction = Constants.DD;
         else if (old_v == 1)
             direction = Constants.DU;
-    }
-
-    public void EndGame()
-    {
-        // 1. 게임오버가 되는순간 시간누적 중지
-        // 2. R 로 눌렀을 때 리셋되게 , 
-        // ---
-        // 3. BestTime을 가져오고 만약 그 시간이 측정 시간보다 작다면 갱신
-        // 4. Map자료구조에 Set
-        // 5. bestTime을 가져와 텍스트에 셋팅
-
-        
-
     }
 
 
