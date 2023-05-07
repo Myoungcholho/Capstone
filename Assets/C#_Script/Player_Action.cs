@@ -24,7 +24,9 @@ public class Player_Action : MonoBehaviour
     float min_x, max_x;
     float min_y, max_y;
 
+    // 캐릭터 방향
     short direction;
+    bool isCharacterMove;
 
     float h;
     float v;
@@ -50,63 +52,84 @@ public class Player_Action : MonoBehaviour
     private void Start()
     {
         direction = Constants.DD;
+        isCharacterMove = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        /* <- 방향 Value -1 , -> 방향 Value 1 */
-        h = Input.GetAxisRaw("Horizontal");
-        /* 아래 방향 Value -1, 윗 방향 Value 1 */
-        v = Input.GetAxisRaw("Vertical");
+        if (isCharacterMove)
+        {
+            rigid.constraints = RigidbodyConstraints2D.FreezePosition;
+            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        if(old_h != h || old_v != v)
-        {
-            playerDirection();
-        }
+            anim.SetInteger("hRaw", 0);
+            anim.SetInteger("vRaw", 0);
 
-        bool hDown = Input.GetButtonDown("Horizontal");
-        bool hUp =  Input.GetButtonUp("Horizontal");
-        bool vDown = Input.GetButtonDown("Vertical");
-        bool vUp = Input.GetButtonUp("Vertical");
-
-        // 방향전환 시점
-        if (hDown || vUp)
-        {
-            isHorizonMove = true;
-            
-        }
-        else if (vDown || hUp)
-        {
-            isHorizonMove = false;
-            
-        }
-        else if (hUp || vUp)
-        {
-            isHorizonMove = h != 0;
-        }
-
-        // 애니메이션 [ h가 가로 !! v는 세로 !! ]
-        if (anim.GetInteger("hRaw") != h)
-        {
-            anim.SetBool("isMoveDirection", true);
-            anim.SetInteger("hRaw", (int)h);
-        }
-        else if (anim.GetInteger("vRaw") != v)
-        {
-            anim.SetBool("isMoveDirection", true);
-            anim.SetInteger("vRaw", (int)v);
         }
         else
         {
-            anim.SetBool("isMoveDirection", false);
+            rigid.constraints = RigidbodyConstraints2D.None;
+            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            /* <- 방향 Value -1 , -> 방향 Value 1 */
+            h = Input.GetAxisRaw("Horizontal");
+            /* 아래 방향 Value -1, 윗 방향 Value 1 */
+            v = Input.GetAxisRaw("Vertical");
+
+            if (old_h != h || old_v != v)
+            {
+                playerDirection();
+            }
+
+            bool hDown = Input.GetButtonDown("Horizontal");
+            bool hUp = Input.GetButtonUp("Horizontal");
+            bool vDown = Input.GetButtonDown("Vertical");
+            bool vUp = Input.GetButtonUp("Vertical");
+
+            // 방향전환 시점
+            if (hDown || vUp)
+            {
+                isHorizonMove = true;
+
+            }
+            else if (vDown || hUp)
+            {
+                isHorizonMove = false;
+
+            }
+            else if (hUp || vUp)
+            {
+                isHorizonMove = h != 0;
+            }
+
+            // 애니메이션 [ h가 가로 !! v는 세로 !! ]
+            if (anim.GetInteger("hRaw") != h)
+            {
+                anim.SetBool("isMoveDirection", true);
+                anim.SetInteger("hRaw", (int)h);
+            }
+            else if (anim.GetInteger("vRaw") != v)
+            {
+                anim.SetBool("isMoveDirection", true);
+                anim.SetInteger("vRaw", (int)v);
+            }
+            else
+            {
+                anim.SetBool("isMoveDirection", false);
+            }
         }
+
+        
 
         
     }
 
     void FixedUpdate()
     {
+        if (isCharacterMove)
+            return;
+
         Player_Move();
     }
 
@@ -131,6 +154,31 @@ public class Player_Action : MonoBehaviour
             direction = Constants.DU;
     }
 
+    public void EndGame()
+    {
+        // 1. 게임오버가 되는순간 시간누적 중지
+        // 2. R 로 눌렀을 때 리셋되게 , 
+        // ---
+        // 3. BestTime을 가져오고 만약 그 시간이 측정 시간보다 작다면 갱신
+        // 4. Map자료구조에 Set
+        // 5. bestTime을 가져와 텍스트에 셋팅
+
+        
+
+    }
+
+
+    //캐릭터 방향 getter
+    public short direction_getter()
+    {
+        return direction;
+    }
+
+    public void isCharacterSetter(bool isCharacter)
+    {
+        isCharacterMove = isCharacter;
+    }
+
     // 충돌
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -142,3 +190,4 @@ public class Player_Action : MonoBehaviour
     }
 
 }
+
