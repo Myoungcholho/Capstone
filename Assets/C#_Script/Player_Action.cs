@@ -35,6 +35,7 @@ public class Player_Action : MonoBehaviour
     Vector3 dirVec;
     Vector3 past_dir;
     bool isCharacterMove;
+    float isCharacterTime;
 
     // h : horizontal , v : vertical
     float h;
@@ -43,7 +44,7 @@ public class Player_Action : MonoBehaviour
     bool isHorizonMove;
 
     /* 값 가져오기 */
-    Rigidbody2D rigid;
+    public Rigidbody2D rigid;
 
     /*애니메이션 */
     Animator anim;
@@ -59,23 +60,30 @@ public class Player_Action : MonoBehaviour
     {
         direction = Constants.DD;
         dirVec = Vector3.down;
-
+        isCharacterTime = 0f;
         isCharacterMove = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //키보드 입력 받는 메소드
         Player_Move();
-
+        //실제 게임 velocity 주는 메소드
+        Player_velocity();
     }
 
     void FixedUpdate()
     {
         if (isCharacterMove)
-            return;
-
-        Player_velocity();
+        {
+            isCharacterTime += Time.deltaTime;
+            if (isCharacterTime >= 0.7f)
+            {
+                isCharacterMove = false;
+                isCharacterTime = 0f;
+            }
+        }
     }
 
     void Player_Move()
@@ -90,18 +98,12 @@ public class Player_Action : MonoBehaviour
         }
         else
         {
-            //rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             /* <- 방향 Value -1 , -> 방향 Value 1 */
             h = Input.GetAxisRaw("Horizontal");
             /* 아래 방향 Value -1, 윗 방향 Value 1 */
             v = Input.GetAxisRaw("Vertical");
-
-            //체크
-            if (h == -1 && v == -1)
-            {
-                Debug.Log("위 아래 동시 눌림");
-            }
 
             bool hDown = Input.GetButtonDown("Horizontal");
             bool hUp = Input.GetButtonUp("Horizontal");
@@ -139,6 +141,8 @@ public class Player_Action : MonoBehaviour
             {
                 anim.SetBool("isMoveDirection", false);
             }
+
+            
         }
     }
 

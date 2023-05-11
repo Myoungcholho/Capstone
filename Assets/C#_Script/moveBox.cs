@@ -26,6 +26,8 @@ public class moveBox : MonoBehaviour
         player = obj.GetComponent<Player_Action>();
         isReady = false;
         past_pos = transform.position;
+
+        
     }
 
     // Update is called once per frame
@@ -43,8 +45,6 @@ public class moveBox : MonoBehaviour
             moveObject();
         else
             resetPos();
-        
-        
     }
 
     void moveObject()
@@ -58,7 +58,7 @@ public class moveBox : MonoBehaviour
             case Constants.DL:
                 if (past_pos.x - 0.9f <= transform.position.x)
                 {
-                    if(boxMoveTime == 0.02f)
+                    if (boxMoveTime == 0.02f)
                         rigid.velocity = Vector2.left * speed;
 
                     if (0.5 < boxMoveTime)
