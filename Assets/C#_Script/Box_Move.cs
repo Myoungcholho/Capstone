@@ -13,18 +13,19 @@ public class Box_Move : MonoBehaviour
     //player
     GameObject obj;
     Player_Action player;
+    
 
     private void Awake()
     {
-        box_rigidbody = GetComponent<Rigidbody2D>();        
+        obj = GameObject.Find("Player");
+        box_rigidbody = GetComponent<Rigidbody2D>();
+        player_collision = false;
+        objecttransform = transform.position;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        player_collision = false;
-        objecttransform = transform.position;
-        obj = GameObject.Find("Player");
         player = obj.GetComponent<Player_Action>();
     }
 
@@ -43,7 +44,7 @@ public class Box_Move : MonoBehaviour
         if(player_collision)
         {
             boxMoveTime += Time.deltaTime;
-            switch(player.direction_getter())
+            switch(player.get_s_dir())
             {
                 // 캐릭터가 오른쪽에서 박스를 밀었을 때
                 case Constants.DL:
@@ -143,13 +144,21 @@ public class Box_Move : MonoBehaviour
                 case Constants.DU:
                     if (objecttransform.y + 0.9f >= transform.position.y)
                     {
-                        box_rigidbody.velocity = Vector2.up * 2;
                         player.isCharacterSetter(true);
+                        box_rigidbody.constraints = RigidbodyConstraints2D.None;
+                        box_rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+                        box_rigidbody.velocity = Vector2.up * 2;
+                        
 
                         if (0.5 < boxMoveTime)
                         {
                             player_collision = false;
                             player.isCharacterSetter(false);
+                            box_rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+                            box_rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+
                             boxMoveTime = 0;
                         }
 

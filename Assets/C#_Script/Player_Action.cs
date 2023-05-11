@@ -16,7 +16,13 @@ static class Constants
 public class Player_Action : MonoBehaviour
 {
     public float speed;
-    
+
+    /*time */
+    float h_subTime;
+    float h_sumTime;
+    float v_subTIme;
+    float v_sumTime;
+
     /* player 이동 관련 */
     float _x;
     float _y;
@@ -26,13 +32,13 @@ public class Player_Action : MonoBehaviour
 
     // 캐릭터 방향
     short direction;
+    Vector3 dirVec;
+    Vector3 past_dir;
     bool isCharacterMove;
 
+    // h : horizontal , v : vertical
     float h;
     float v;
-    float old_h;
-    float old_v;
-
 
     bool isHorizonMove;
 
@@ -52,16 +58,31 @@ public class Player_Action : MonoBehaviour
     private void Start()
     {
         direction = Constants.DD;
+        dirVec = Vector3.down;
+
         isCharacterMove = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Player_Move();
+
+    }
+
+    void FixedUpdate()
+    {
+        if (isCharacterMove)
+            return;
+
+        Player_velocity();
+    }
+
+    void Player_Move()
+    {
         if (isCharacterMove)
         {
-            rigid.constraints = RigidbodyConstraints2D.FreezePosition;
-            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+            rigid.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
 
             anim.SetInteger("hRaw", 0);
             anim.SetInteger("vRaw", 0);
@@ -69,8 +90,7 @@ public class Player_Action : MonoBehaviour
         }
         else
         {
-            rigid.constraints = RigidbodyConstraints2D.None;
-            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+            //rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             /* <- 방향 Value -1 , -> 방향 Value 1 */
             h = Input.GetAxisRaw("Horizontal");
@@ -78,15 +98,9 @@ public class Player_Action : MonoBehaviour
             v = Input.GetAxisRaw("Vertical");
 
             //체크
-            if(h == -1 && v == -1)
+            if (h == -1 && v == -1)
             {
                 Debug.Log("위 아래 동시 눌림");
-            }
-
-
-            if (old_h != h || old_v != v)
-            {
-                playerDirection();
             }
 
             bool hDown = Input.GetButtonDown("Horizontal");
@@ -126,46 +140,44 @@ public class Player_Action : MonoBehaviour
                 anim.SetBool("isMoveDirection", false);
             }
         }
-
-        
-
-        
     }
 
-    void FixedUpdate()
-    {
-        if (isCharacterMove)
-            return;
-
-        Player_Move();
-    }
-
-    void Player_Move()
+    void Player_velocity()
     {
         Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
+        if(moveVec == Vector2.right)
+        {
+            direction = Constants.DR;
+            dirVec = Vector3.right;
+        }
+        else if(moveVec == Vector2.left)
+        {
+            direction = Constants.DL;
+            dirVec = Vector3.left;
+        }
+        else if(moveVec == Vector2.down)
+        {
+            direction = Constants.DD;
+            dirVec = Vector3.down;
+        }
+        else if (moveVec == Vector2.up)
+        {
+            direction = Constants.DU;
+            dirVec = Vector3.up;
+        }
+
         rigid.velocity = moveVec * speed;
     }
 
-    void playerDirection()
-    {
-        old_h = h;
-        old_v = v;
-
-        if (old_h == -1)
-            direction = Constants.DL;
-        else if (old_h == 1)
-            direction = Constants.DR;
-        else if (old_v == -1)
-            direction = Constants.DD;
-        else if (old_v == 1)
-            direction = Constants.DU;
-    }
-
-
     //캐릭터 방향 getter
-    public short direction_getter()
+    public short get_s_dir()
     {
         return direction;
+    }
+
+    public Vector3 get_v_dir()
+    {
+        return dirVec;
     }
 
     public void isCharacterSetter(bool isCharacter)
@@ -179,7 +191,7 @@ public class Player_Action : MonoBehaviour
         if (collision.collider.tag == "Box")
         {
             Debug.Log("박스와 충돌함 !! ");
-            // 플레이어가 잠시 멈추어야 함.
+            
         }
     }
 
