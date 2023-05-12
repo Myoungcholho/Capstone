@@ -18,6 +18,7 @@ public class moveBox : MonoBehaviour
     private void Awake()
     {
         obj = GameObject.Find("Player");
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -59,12 +60,16 @@ public class moveBox : MonoBehaviour
                 if (past_pos.x - 0.9f <= transform.position.x)
                 {
                     if (boxMoveTime == 0.02f)
+                    {
+                        rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
                         rigid.velocity = Vector2.left * speed;
+                    }
 
                     if (0.5 < boxMoveTime)
                     {
                         boxMoveTime = 0;
                         isReady = false;
+                        rigid.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
                     }
                 }
                 else
@@ -77,6 +82,7 @@ public class moveBox : MonoBehaviour
                     past_pos = transform.position;
                     boxMoveTime = 0;
                     isReady = false;
+                    rigid.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
                 }
                 break;
             // 캐릭터가 왼쪽에서 박스를 밀었을 때 
@@ -84,12 +90,15 @@ public class moveBox : MonoBehaviour
                 if (past_pos.x + 0.9f >= transform.position.x)
                 {
                     if (boxMoveTime == 0.02f)
+                    {
+                        rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
                         rigid.velocity = Vector2.right * speed;
-
+                    }
                     if (0.5 < boxMoveTime)
                     {
                         boxMoveTime = 0;
                         isReady = false;
+                        rigid.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
                     }
                 }
                 else
@@ -102,6 +111,7 @@ public class moveBox : MonoBehaviour
                     past_pos = transform.position;
                     boxMoveTime = 0;
                     isReady = false;
+                    rigid.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
                 }
                 break;
             // 캐릭터가 왼쪽에서 박스를 밀었을 때 
@@ -109,12 +119,16 @@ public class moveBox : MonoBehaviour
                 if (past_pos.y - 0.9f <= transform.position.y)
                 {
                     if (boxMoveTime == 0.02f)
+                    {
+                        rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
                         rigid.velocity = Vector2.down * speed;
+                    }
 
                     if (0.5 < boxMoveTime)
                     {
                         boxMoveTime = 0;
                         isReady = false;
+                        rigid.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
                     }
                 }
                 else
@@ -127,6 +141,7 @@ public class moveBox : MonoBehaviour
                     past_pos = transform.position;
                     boxMoveTime = 0;
                     isReady = false;
+                    rigid.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
                 }
                 break;
             // 캐릭터가 왼쪽에서 박스를 밀었을 때 
@@ -134,12 +149,16 @@ public class moveBox : MonoBehaviour
                 if (past_pos.y + 0.9f >= transform.position.y)
                 {
                     if (boxMoveTime == 0.02f)
+                    {
+                        rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
                         rigid.velocity = Vector2.up * speed;
+                    }
 
                     if (0.5 < boxMoveTime)
                     {   
                         boxMoveTime = 0;
                         isReady = false;
+                        rigid.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
                     }
                 }
                 else
@@ -152,6 +171,7 @@ public class moveBox : MonoBehaviour
                     past_pos = transform.position;
                     boxMoveTime = 0;
                     isReady = false;
+                    rigid.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
                 }
                 break;
 

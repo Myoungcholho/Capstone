@@ -17,23 +17,10 @@ public class Player_Action : MonoBehaviour
 {
     public float speed;
 
-    /*time */
-    float h_subTime;
-    float h_sumTime;
-    float v_subTIme;
-    float v_sumTime;
-
-    /* player 이동 관련 */
-    float _x;
-    float _y;
-    float move_time;
-    float min_x, max_x;
-    float min_y, max_y;
 
     // 캐릭터 방향
     short direction;
     Vector3 dirVec;
-    Vector3 past_dir;
     bool isCharacterMove;
     float isCharacterTime;
 
