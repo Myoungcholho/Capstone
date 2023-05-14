@@ -7,15 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    //인벤토리
+    public GameObject inventoryPanel;
+    bool activeInventory = false;
 
+    //게임재시작
     private bool isGameover;
     private int SceneNum;
+    
 
-    // Start is called before the first frame update
     void Start()
     {
         isGameover = false;
         SceneNum = 0;
+        inventoryPanel.SetActive(activeInventory);
     }
 
     // Update is called once per frame
@@ -29,13 +34,21 @@ public class GameManager : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneNum);
             }
-
+            // I 키를 눌렀을 때 인벤토리
+            if(Input.GetKeyDown(KeyCode.I))
+            {
+                activeInventory = !activeInventory;
+                inventoryPanel.SetActive(activeInventory);
+            }
 
         }
         else
         {
 
         }
+
+        
+
     }
 
     // 게임오버인 경우 Manager EndGame 호출
