@@ -15,7 +15,10 @@ public class InventoryUI : MonoBehaviour
         inven = Inventory.instance;
         slots = slotHolder.GetComponentsInChildren<Slot>();
 
+        // 함수 체인
         inven.onSlotCountChange += SlotChange;
+
+        inven.onChangeItem += RedrawSlotUI;
         
     }
 
@@ -23,6 +26,8 @@ public class InventoryUI : MonoBehaviour
     {
         for(int i=0; i<slots.Length; ++i)
         {
+            slots[i].slotnum = i;
+
             if (i < inven.SlotCnt)
                 slots[i].GetComponent<Button>().interactable = true;
             else
@@ -40,5 +45,18 @@ public class InventoryUI : MonoBehaviour
     public void AddSlot()
     {
         inven.SlotCnt++;
+    }
+
+    void RedrawSlotUI()
+    {
+        for(int i=0; i<slots.Length; ++i)
+        {
+            slots[i].RemoveSlot();
+        }
+        for(int i=0; i<inven.items.Count; ++i)
+        {
+            slots[i].item = inven.items[i];
+            slots[i].UpdateSlotUI();
+        }
     }
 }
