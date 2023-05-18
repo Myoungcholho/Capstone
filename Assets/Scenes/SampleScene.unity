@@ -9769,7 +9769,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 974041260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7ffb4c4987deb94dbbf329f67430c3a, type: 3}
+  m_Script: {fileID: 11500000, guid: cb1b6fcd0cec12242bbf04b41935d5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1001606070
@@ -9782,7 +9782,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1001606072}
   - component: {fileID: 1001606073}
-  - component: {fileID: 1001606074}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -9819,18 +9818,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMapName: 
   inventoryPanel: {fileID: 1089372008}
---- !u!114 &1001606074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001606070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7ffb4c4987deb94dbbf329f67430c3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1067933791
 GameObject:
   m_ObjectHideFlags: 0
@@ -10186,7 +10173,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1162707957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7ffb4c4987deb94dbbf329f67430c3a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8401b1b003b96b14fb6f9f7e6ba3c267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1242096993
