@@ -7,6 +7,24 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    #region Singleton
+    public static GameManager instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
+    #endregion
+
+    //현재 맵 정보
+    public string currentMapName;
+
+
     //인벤토리
     public GameObject inventoryPanel;
     bool activeInventory = false;
@@ -18,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         isGameover = false;
         SceneNum = 0;
         inventoryPanel.SetActive(activeInventory);
