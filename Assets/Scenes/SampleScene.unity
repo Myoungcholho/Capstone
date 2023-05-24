@@ -1848,6 +1848,7 @@ GameObject:
   - component: {fileID: 548009699}
   - component: {fileID: 548009700}
   - component: {fileID: 548009701}
+  - component: {fileID: 548009705}
   - component: {fileID: 548009697}
   - component: {fileID: 548009702}
   - component: {fileID: 548009703}
@@ -2033,6 +2034,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7ffb4c4987deb94dbbf329f67430c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &548009705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548009694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434887aa3366bcc4c996a7693814b31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &550697699
@@ -2368,6 +2381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  playerStates: {fileID: 0}
 --- !u!1001 &574840220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3031,7 +3045,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.507
+  m_Value: 0.774
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3091,6 +3105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 786817955}
+  - component: {fileID: 786817956}
   m_Layer: 5
   m_Name: PanelPlayerState
   m_TagString: Untagged
@@ -3120,6 +3135,23 @@ RectTransform:
   m_AnchoredPosition: {x: -576, y: -484}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &786817956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786817954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aaec506bf0f74b4a9eabdd006ce7d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStates: {fileID: 0}
+  sliderHP: {fileID: 694075128}
+  textHP: {fileID: 1449501920}
+  sliderMP: {fileID: 2108919892}
+  textMP: {fileID: 565502099}
 --- !u!1 &859214852
 GameObject:
   m_ObjectHideFlags: 0
@@ -14353,6 +14385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  playerStates: {fileID: 0}
 --- !u!1001 &2052764026
 PrefabInstance:
   m_ObjectHideFlags: 0

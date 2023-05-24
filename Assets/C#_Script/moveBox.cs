@@ -15,6 +15,9 @@ public class moveBox : MonoBehaviour
     bool isReady;
     float boxMoveTime;
 
+    [HideInInspector]
+    public PlayerStates playerStates;
+
     private void Awake()
     {
         obj = GameObject.Find("Player");
@@ -28,7 +31,10 @@ public class moveBox : MonoBehaviour
         isReady = false;
         past_pos = transform.position;
 
-        
+        playerStates = GameObject.Find("Player").GetComponent<PlayerStates>();
+        if (playerStates == null)
+            Debug.Log("BoxMove.cs 에서 playerStates.cs 가져오지 못함.");
+
     }
 
     // Update is called once per frame
@@ -82,6 +88,7 @@ public class moveBox : MonoBehaviour
                     past_pos = transform.position;
                     boxMoveTime = 0;
                     isReady = false;
+                    playerFatigue();
                     rigid.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
                 }
                 break;
@@ -182,6 +189,12 @@ public class moveBox : MonoBehaviour
 
 
         
+    }
+
+    void playerFatigue()
+    {
+        if(playerStates.HP >= 0)
+            --playerStates.HP;
     }
 
     void resetPos()

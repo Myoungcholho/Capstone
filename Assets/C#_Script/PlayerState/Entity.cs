@@ -87,6 +87,9 @@ MapData가 있어야 하는데..
 
 
 
+StartCoroutine("HitAnimation");
+
+private IEnumerator HitAnimation(); 이거 되는건가?
 
 
 

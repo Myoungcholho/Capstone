@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
 public class GameManager : MonoBehaviour
 {
     #region Singleton
@@ -24,7 +23,6 @@ public class GameManager : MonoBehaviour
     //현재 맵 정보
     public string currentMapName;
 
-
     //인벤토리
     public GameObject inventoryPanel;
     bool activeInventory = false;
@@ -32,7 +30,7 @@ public class GameManager : MonoBehaviour
     //게임재시작
     private bool isGameover;
     private int SceneNum;
-    
+
 
     void Start()
     {
